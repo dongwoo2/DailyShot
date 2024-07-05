@@ -8,7 +8,7 @@ sys.stdout=io.TextIOWrapper(sys.stderr.detach(), encoding='utf-8')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
 django.setup()
 
-from map.models import Alcolshop # 정보를 저장할 장고의 모델을 불러오기
+from mapss.models import Alcolshop # 정보를 저장할 장고의 모델을 불러오기
 
 def parsing():
 

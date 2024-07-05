@@ -22,7 +22,7 @@ class KakaoMapView(View):
         if option.store == False:
             alcolshops = alcolshops.exclude(alcolshoptype='store')
 
-        return render(request, "map/kakaomap.html", {'alcolshops': alcolshops, 'form': form, 'coordinate': coordinate})
+        return render(request, "mapss/kakaomap.html", {'alcolshops': alcolshops, 'form': form, 'coordinate': coordinate})
 
     def post(self, request):
         option = get_object_or_404(Filter)
@@ -30,7 +30,7 @@ class KakaoMapView(View):
         if form.is_valid():
             option = form.save(commit=False)
             option.save()
-            return redirect('map:kakaomap')
+            return redirect('mapss:kakaomap')
 
         alcolshops = Alcolshop.objects.all()
         coordinate = geocoder.ip('me').latlng
@@ -40,10 +40,10 @@ class KakaoMapView(View):
         if option.store == False:
             alcolshops = alcolshops.exclude(alcolshoptype='store')
 
-        return render(request, "map/kakaomap.html", {'alcolshops': alcolshops, 'form': form, 'coordinate': coordinate})
+        return render(request, "mapss/kakaomap.html", {'alcolshops': alcolshops, 'form': form, 'coordinate': coordinate})
 
 # urls.py에 다음과 같이 추가:
 # from .views import KakaoMapView
 # urlpatterns = [
-#     path('map/KakaoMap', KakaoMapView.as_view(), name='kakaomap')
+#     path('mapss/KakaoMap', KakaoMapView.as_view(), name='kakaomap')
 # ]
