@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from rest_framework.views import APIView
-from backend.mapss.models import Alcolshop
+from map.models import Alcolshop
 from rest_framework.response import Response
 # Create your views here.
 
@@ -10,23 +11,32 @@ class Show(APIView):
 
 class ShopJoin(APIView):
     def get(self, request):
-        return render(request, "shop/join.html")
+        return render(request, "shop/shopjoin.html")
 
     def post(self, request):
-        # TODO 회원가입
+        # TODO 입점
         name = request.data.get('name', None)
         location = request.data.get('location', None)
         latitude = request.data.get('latitude', None)
         longitude = request.data.get('longitude', None)
         alcolshoptype = request.data.get('alcolshoptype', None)
 
+        if Alcolshop.objects.filter(name=name, location=location).exists():
+            return JsonResponse({'status': 'error', 'message': '중복된 데이터입니다.'})
+
+
+
+
+
+
         Alcolshop.objects.create(name=name,
                             location=location,
                             latitude=latitude,
                             longitude=longitude,
                             alcolshoptype=alcolshoptype)
+        return JsonResponse({'status': 'success', 'message': '데이터가 성공적으로 생성되었습니다.'})
 
-        return Response(status=200)
+        #return Response(status=200)
 
 
 

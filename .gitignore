@@ -3,7 +3,7 @@ db.sqlite3
 .idea/
 /content/__pycache__/
 /content/migrations/
-/mapss/__pycache__/
-/mapss/migrations/
+/map/__pycache__/
+/map/migrations/
 /shop/__pycache__/
 /shop/migrations/

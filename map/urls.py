@@ -3,9 +3,9 @@ from django.urls import path
 from . import views
 from .views import KakaoMapView
 
-app_name = 'mapss'
+app_name = 'map'
 
 urlpatterns = [
     #path('', views.index, name='index'),
-    path('mapss/KakaoMap', KakaoMapView.as_view(), name='kakaomap')
+    path('map/KakaoMap', KakaoMapView.as_view(), name='kakaomap')
 ]

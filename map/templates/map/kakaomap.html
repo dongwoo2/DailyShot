@@ -24,7 +24,7 @@
     </div>
 
 <div>
-    <form method="POST" action="{% url 'mapss:kakaomap' %}">
+    <form method="POST" action="{% url 'map:kakaomap' %}">
         {% csrf_token %}
         <p><label for="id_patner">patner:</label>
             <input type="checkbox" name="patner" id="id_patner"></p>
@@ -37,7 +37,7 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f5318beaf9fa32376898cdd9405db0e2&libraries=services,clusterer,drawing"></script>
     <script>
-        var container = document.getElementById('mapss')
+        var container = document.getElementById('map')
         var options = {
 			center: new kakao.maps.LatLng(37.4986232309429 , 127.028065727387),
 			level: 3
