@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Alcolshop(models.Model):
+class AlcolDrinks(models.Model):
 
     ALCOL_TYPE_CHOICES = { # 술 종류
         ('Whisky','위스키'),
@@ -9,6 +9,7 @@ class Alcolshop(models.Model):
         ('Sake','사케'),
         ('Wine','와인'),
         ('Beer','맥주'),
+        ('Other', '기타'),
     }
     DRINK_TYPE_CHOICES = [ # 술 세부 종류
         ('Bourbon', '버번'),
@@ -19,14 +20,14 @@ class Alcolshop(models.Model):
         ('White Wine', '화이트와인'),
         ('Lager', '라거'),
         ('ALE', '에일'),
+        ('Other', '기타'),
     ]
+
 
 
     name = models.CharField(max_length=70) # 술 이름
     inventory = models.CharField(max_length=70) # 재고
-    price = models.IntegerField()  # 가격
-    # 판매처
-
-    alcol_type = models.CharField(max_length=20, choices= ALCOL_TYPE_CHOICES, default='')
-    drin_type = models.CharField(max_length=20, choices= DRINK_TYPE_CHOICES, default='')
+    price = models.IntegerField(default=0)  # 가격
+    alcol_type = models.CharField(max_length=20, choices= ALCOL_TYPE_CHOICES, default='Other')
+    drink_type = models.CharField(max_length=20, choices= DRINK_TYPE_CHOICES, default='Other')
 
