@@ -1,6 +1,7 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Alcolshop, Filter
+from shop.models import AllShop
 from .forms import FilterForm
 import geocoder
 
@@ -34,6 +35,7 @@ class KakaoMapView(View):
 
         alcolshops = Alcolshop.objects.all()
         coordinate = geocoder.ip('me').latlng
+
 
         if option.patner == False:
             alcolshops = alcolshops.exclude(alcolshoptype='patner')

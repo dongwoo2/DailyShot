@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from map.models import Alcolshop
+from shop.models import AllShop
 import json
 from rest_framework.response import Response
 # Create your views here.
@@ -30,6 +31,10 @@ class ShopJoin(APIView):
                                 latitude=latitude,
                                 longitude=longitude,
                                 alcolshoptype=alcolshoptype)
+
+            AllShop.objects.create(name=name,
+                                   location=location,
+                                   alcolshoptype=alcolshoptype)
             return JsonResponse({'status': 'success', 'message': '데이터가 성공적으로 생성되었습니다.'})
 
         #return Response(status=200)
