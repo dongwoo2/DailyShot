@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from map.models import Alcolshop
-from shop.models import AllShop
+from shop.models import AllShop, ShopDrinks_Count
 import json
 from rest_framework.response import Response
 # Create your views here.
@@ -43,3 +43,12 @@ class ShopJoin(APIView):
 
 # def show(request):
 #     return render(request, 'shop/show.html')
+class AllShopDrinks(APIView):
+    def get(self, request):
+
+        shopid = AllShop.objects.filter(id=id)
+        return render(request,'shop/allshopdrinks.html', context={'shopid':shopid})
+
+class ShopDrinks(APIView): # 하나 더 만들어야함 이거는 1개만 조회가능 전체조회하는 API만들어야함
+    def get(self, request):
+        drink = ShopDrinks_Count.objects.filter(id=id)
