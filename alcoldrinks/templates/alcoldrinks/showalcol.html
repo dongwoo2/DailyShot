@@ -3,26 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
-    <style>
-        .feed_box {
-            margin: 20px 0;
-            border: solid 1px gray;
-            background-color: white
-        }
-    </style>
 </head>
 <body>
-    {% for alcol in alcol_list %}
-    <div class="feed_box">
-        <div style="display: flex;flex-direction: row; align-items: center; margin: 20px">
-            {{ alcol.id }}
-            {{ alcol.name }}
-        </div>
+    <div>
         술 보는 페이지
     </div>
-    {% endfor %}
     <div>
+
         <a href="{% url 'alcoldrinks:createalcol' %}">술 등록 페이지</a>
     </div>
 </body>
