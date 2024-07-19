@@ -15,7 +15,7 @@ class CreateAlcol(APIView):
         return render(request, 'alcoldrinks/createalcol.html')
     def post(self, request):
         # 일단 파일 불러와
-        d
+        file = request.FILES['file']
 
         uuid_name = uuid4().hex # 이미지 파일의 경우 특수문자 한글 막 뒤죽박죽하게 섞여있다 그것을 영어와 숫자로만 적힌 고유id값으로 만들어준다
         save_path = os.path.join(MEDIA_ROOT, uuid_name) # 경로지정 경로를 join 미디어루트 경로에 uuid_name을 추가 즉 media/uuid_name 이렇게 지정을 하겠다는 뜻 미디어 폴더에 uuid_name으로 고유값이 만들어진 애까지 지정
