@@ -7,6 +7,6 @@ app_name = 'alcoldrinks'
 
 urlpatterns = [
     #path('', views.index, name='index'),
-    path('alcoldrinks/CreateAlcol', CreateAlcol.as_view(), name='createalcol'),
-    path('alcoldrinks/ShowAlcol', views.ShowAlcol.as_view(), name='showalcol'),
+    path('CreateAlcol', CreateAlcol.as_view(), name='createalcol'),
+    path('ShowAlcol', views.ShowAlcol.as_view(), name='showalcol'),
 ]

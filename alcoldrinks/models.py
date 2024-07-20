@@ -27,7 +27,9 @@ class AlcolDrinks(models.Model):
 
     name = models.CharField(max_length=70) # 술 이름
     inventory = models.CharField(max_length=70) # 재고
-    price = models.IntegerField(default=0)  # 가격
+    price = models.CharField(max_length=70) # 가격
+    image = models.TextField(blank=True)
+    information = models.TextField(blank=True)
     alcol_type = models.CharField(max_length=20, choices= ALCOL_TYPE_CHOICES, default='Other')
     drink_type = models.CharField(max_length=20, choices= DRINK_TYPE_CHOICES, default='Other')
 

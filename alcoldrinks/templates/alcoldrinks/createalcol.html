@@ -46,13 +46,8 @@
 <div>
     <div>
 
-            <input type="text" id="input_name" placeholder="name">
-            <input type="text" id="input_inventory" placeholder="inventory">
-            <input type="text" id="input_price" placeholder="price">
-            <input type="text" id="input_alcol_type" placeholder="alcol_type">
-            <input type="text" id="input_drink_type" placeholder="drink_type">
-            <input style="width: 10%" type="image" id="input_image" placeholder="이미지를 가져오세요">
-            <button id="create_alcol_button" type="button"></button>
+            <a href="#" id="click">술 등록</a>
+
 
     </div>
     <div>
@@ -96,11 +91,24 @@
                 <div class="img_upload_space" style="width: 500px; height:540px;">
 
                 </div>
-                <div style="border-left: solid 1px gray"> <!--이 영역에 input 데이터 만들어야함 -->
-                    <div>
-                        <textarea id="input_feed_content" class="form-control" style="width: 276px; height: 400px"
-                                  id="exampleFormControlTextArea1" rows="5"></textarea>
-                    </div>
+                <div style="border-left: solid 1px gray"> <!--이 영역에 input 데이터 만들어야함 --><div>
+        <textarea id="input_information" class="form-control" style="width: 276px; height: 200px" rows="5" placeholder="정보"></textarea>
+    </div>
+    <div>
+         <input id="input_name" type="text" class="form-control" style="width: 276px;" placeholder="이름" value="">
+    </div>
+    <div>
+        <input id="input_inventory" type="text"  class="form-control" style="width: 276px;" placeholder="재고" value="">
+    </div>
+    <div>
+        <input id="input_price" type="text"  class="form-control" style="width: 276px;" placeholder="가격" value="">
+    </div>
+    <div>
+        <input id="input_alcol_type" type="text" class="form-control" style="width: 276px;" placeholder="술 종류" value="">
+    </div>
+    <div>
+        <input id="input_drink_type" type="text"  class="form-control" style="width: 276px;" placeholder="술 세부종류" value="">
+    </div>
                     <button id="feed_create_button" type="button" class="btn btn-primary" style="width: 100%;">
                         공유하기
                     </button>
@@ -113,8 +121,8 @@
 
 <script>
     let files
-
-    $('#feed_create_button').click(function () {
+$(document).ready(function() {
+ $('#feed_create_button').click(function () {
 
         let file = files[0];
         let name = $('#input_name').val();
@@ -122,7 +130,9 @@
         let price = $('#input_price').val();
         let alcol_type = $('#input_alcol_type').val();
         let drink_type = $('#input_drink_type').val();
+        let information = $('#input_information').val();
         let image = files[0].name;
+        console.log(name,inventory,price,alcol_type,drink_type,image,information,file)
 
         let fd = new FormData();
 
@@ -132,6 +142,8 @@
         fd.append('alcol_type',alcol_type);
         fd.append('drink_type',drink_type);
         fd.append('image',image);
+        fd.append('information', information);
+        fd.append('file', file)
 
         let create_url = "{% url 'alcoldrinks:createalcol' %}"
         $.ajax({
@@ -156,7 +168,9 @@
 
     });
 
-    $('#input_image').click(function () {
+});
+
+    $('#click').click(function () {
         $('#first_modal').css({
             display: 'flex'
         });
@@ -227,8 +241,6 @@
             alert('이미지가 아닙니다.');
             return;
         }
-
-
 
     }
 </script>

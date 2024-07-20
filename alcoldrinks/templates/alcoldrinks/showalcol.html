@@ -5,9 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-    <div>
-        술 보는 페이지
-    </div>
+    {% for alcol in AllAlcol %}
+        {{ alcol.name }}
+
+    {% endfor %}
+
     <div>
 
         <a href="{% url 'alcoldrinks:createalcol' %}">술 등록 페이지</a>

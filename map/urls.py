@@ -7,5 +7,5 @@ app_name = 'map'
 
 urlpatterns = [
     #path('', views.index, name='index'),
-    path('map/KakaoMap', KakaoMapView.as_view(), name='kakaomap')
+    path('KakaoMap', KakaoMapView.as_view(), name='kakaomap')
 ]
