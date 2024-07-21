@@ -7,3 +7,4 @@ db.sqlite3
 /map/migrations/
 /shop/__pycache__/
 /shop/migrations/
+media
