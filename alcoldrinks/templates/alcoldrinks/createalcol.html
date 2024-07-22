@@ -145,26 +145,41 @@ $(document).ready(function() {
         fd.append('information', information);
         fd.append('file', file)
 
-        let create_url = "{% url 'alcoldrinks:createalcol' %}"
-        $.ajax({
-            url: create_url,
-            data: fd,
-            method: "POST",
-            processData: false,
-            contentType: false,
-            <!--processData: false,django.db.utils.IntegrityError: NOT NULL constraint failed: User.name 이거 지우니까 이 오류 사라짐-->
-            success: function (data) {
-                console.log("성공");
-                alert('데이터 생성 성공')
-                location.replace('/main')
-            },
-            error: function (request, status, error) {
-                console.log("에러");
-            },
-            complete: function () {
-                console.log("완료");
-            }
-        });
+        if(image.length <= 0) {
+            alert("이미지가 비어있습니다.");
+        } else if(information.length <= 0) {
+            alert("설명을 입력해주세요");
+        } else if(inventory.length <=0) {
+            alert("재고를 입력해주세요");
+        } else if(price.length <= 0) {
+            alert("가격을 입력해주세요");
+        } else {
+            createAlcol(fd);
+            console.log(files[0])
+        }
+
+     function createAlcol(fd) {
+         let create_url = "{% url 'alcoldrinks:createalcol' %}"
+         $.ajax({
+             url: create_url,
+             data: fd,
+             method: "POST",
+             processData: false,
+             contentType: false,
+             <!--processData: false,django.db.utils.IntegrityError: NOT NULL constraint failed: User.name 이거 지우니까 이 오류 사라짐-->
+             success: function (data) {
+                 console.log("성공");
+                 alert('데이터 생성 성공')
+                 location.replace('/alcoldrinks/showalcol')
+             },
+             error: function (request, status, error) {
+                 console.log("에러");
+             },
+             complete: function () {
+                 console.log("완료");
+             }
+         });
+     }
 
     });
 

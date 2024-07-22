@@ -53,3 +53,10 @@ class ShowAlcol(APIView):
         AllAlcol = AlcolDrinks.objects.all()
 
         return render(request, 'alcoldrinks/showalcol.html', {'AllAlcol': AllAlcol})
+
+
+class ShowAlcoldetail(APIView):
+    def get(self, request, pk):
+        detailAlcol = AlcolDrinks.objects.get(pk=pk)
+
+        return render(request,'alcoldrinks/showalcoldetail.html', {'detailAlcol': detailAlcol})

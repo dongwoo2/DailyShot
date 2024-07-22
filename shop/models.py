@@ -15,7 +15,7 @@ class Filter(models.Model):
     store = models.BooleanField(default='True')
     
 class ShopDrinks_Count(models.Model):
-    shop = models.ForeignKey(AllShop, on_delete=models.CASCADE)
-    drinks = models.ForeignKey(AlcolDrinks, on_delete=models.CASCADE)
+    shop = models.ForeignKey(AllShop, on_delete=models.CASCADE) # 가게 외래키랑 연결
+    drinks_id = models.ForeignKey(AlcolDrinks, on_delete=models.CASCADE) # 술 아이디랑 연결
     count = models.IntegerField(default=0)
     price = models.IntegerField(default=0)

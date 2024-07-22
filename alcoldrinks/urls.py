@@ -9,4 +9,5 @@ urlpatterns = [
     #path('', views.index, name='index'),
     path('CreateAlcol', CreateAlcol.as_view(), name='createalcol'),
     path('ShowAlcol', views.ShowAlcol.as_view(), name='showalcol'),
+    path('ShowAlcoldetail/<int:pk>/', views.ShowAlcoldetail.as_view(), name='showalcoldetail'),
 ]
