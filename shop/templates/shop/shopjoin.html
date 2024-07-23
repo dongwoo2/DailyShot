@@ -17,7 +17,7 @@
             headers: {"X-CSRFToken": '{{csrf_token}}'}
         });
     </script>
-    <title>회원 가입</title>
+    <title>입점 하기</title>
 
 </head>
 <body style="background: #FAFAFA">
@@ -94,7 +94,7 @@
             success: function (data) {
                 console.log("성공");
                 alert('입점 성공')
-                location.replace('/shop/show/')
+                location.replace('/shop/shopjoin')
                 $('#input_shop_name').clear();
             },
             error: function (request, status, error) {

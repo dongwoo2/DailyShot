@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from map.models import Alcolshop
-from shop.models import AllShop, ShopDrinks_Count
+from shop.models import AllShop, ShopDrinks_Count, DrinkSalesRate
+from alcoldrinks.models import AlcolDrinks
 import json
 from rest_framework.response import Response
 # Create your views here.
@@ -43,12 +44,31 @@ class ShopJoin(APIView):
 
 # def show(request):
 #     return render(request, 'shop/show.html')
-class AllShopDrinks(APIView):
+class ShopAlcolDetail(APIView): # 전체 가게들이 보이게 한 다음에 가게마다 클릭해서 가게를 볼 수 있게
     def get(self, request):
 
-        shopid = AllShop.objects.filter(id=id)
-        return render(request,'shop/allshopdrinks.html', context={'shopid':shopid})
+        #shopid = AllShop.objects.filter(id=id)
+        shop = AllShop.objects.all()
+        alcoldrinks = AlcolDrinks.objects.all()
+        return render(request,'shop/allshopdrinks.html', context={'shop':shop, 'alcoldrinks':alcoldrinks})
 
-class ShopDrinks(APIView): # 하나 더 만들어야함 이거는 1개만 조회가능 전체조회하는 API만들어야함
+# class ShopDrinks(APIView): # 하나 더 만들어야함 이거는 1개만 조회가능 전체조회하는 API만들어야함
+#     def get(self, request):
+#         drink = ShopDrinks_Count.objects.filter(id=id)
+
+
+class DrinkSalesRate(APIView): # 판매 정산
     def get(self, request):
-        drink = ShopDrinks_Count.objects.filter(id=id)
+        drinkrate = DrinkSalesRate.objects.get(id=id)
+        shopname = AllShop.objects.filter(id=id) # 이름 구하기용
+        alcoldrinks = AlcolDrinks.objects.filter(id=id)
+        return render(request,'shop/shopsales.html', context={'drinkrate':drinkrate,'shopname':shopname,'alcoldrinks':alcoldrinks})
+
+
+
+
+
+
+
+
+
