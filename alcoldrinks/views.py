@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from mysite.settings import MEDIA_ROOT
 from .models import AlcolDrinks
-
+from .forms import AlcolDrinksForm
 
 # Create your views here.
 
@@ -60,3 +60,29 @@ class ShowAlcoldetail(APIView):
         detailAlcol = AlcolDrinks.objects.get(pk=pk)
 
         return render(request,'alcoldrinks/showalcoldetail.html', {'detailAlcol': detailAlcol})
+
+
+class UpdateAlcol(APIView):
+    def get(self, request, pk):
+        alcoldrinks = AlcolDrinks.objects.get(pk=pk)
+        form = AlcolDrinksForm(instance=alcoldrinks) # instance=alcoldrinks 이 소스를 통해 기존의 해당 게시글의 정보를 가지고 온다.
+
+        return render(request, 'alcoldrinks/alcolupdate.html', {'form': form})
+
+    def post(self, request, pk):
+        alcoldrinks = AlcolDrinks.objects.get(pk=pk)
+        form = AlcolDrinksForm(request.POST)
+        if form.is_valid():
+            alcoldrinks.name = form.cleaned_data['name']
+            alcoldrinks.inventory = form.cleaned_data['inventory']
+            alcoldrinks.price = form.cleaned_data['price']
+            alcoldrinks.alcol_type = form.cleaned_data['alcol_type']
+            alcoldrinks.drink_type = form.cleaned_data['drink_type']
+            alcoldrinks.information = form.cleaned_data['information']
+            alcoldrinks.save()
+            return render(request,'alcoldrinks/showalcoldetail.html',{'detailAlcol': alcoldrinks})
+
+
+
+
+

@@ -10,4 +10,5 @@ urlpatterns = [
     path('CreateAlcol', CreateAlcol.as_view(), name='createalcol'),
     path('ShowAlcol', views.ShowAlcol.as_view(), name='showalcol'),
     path('ShowAlcoldetail/<int:pk>/', views.ShowAlcoldetail.as_view(), name='showalcoldetail'),
+    path('UpdateAlcol/<int:pk>/', views.UpdateAlcol.as_view(), name='updateAlcol'),
 ]
