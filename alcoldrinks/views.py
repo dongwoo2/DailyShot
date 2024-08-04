@@ -82,17 +82,15 @@ class UpdateAlcol(APIView):
             alcoldrinks.alcol_type = form.cleaned_data['alcol_type']
             alcoldrinks.drink_type = form.cleaned_data['drink_type']
             alcoldrinks.information = form.cleaned_data['information']
-            uuid_name = alcoldrinks.image
-            print(request.POST.get('checkimage'))
-            if request.POST.get('checkimage') == '1':  # 체크 상태 확인
-                file = request.FILES.get('selected_image')  # 변경된 이미지 가져오기
-                if file:  # 파일이 존재하는 경우에만 처리
-                    uuid_name = uuid4().hex  # 고유 ID 생성
-                    save_path = os.path.join(MEDIA_ROOT, uuid_name)  # MEDIA_ROOT와 결합
 
-                    with open(save_path, 'wb+') as destination:  # 파일 저장
-                        for chunk in file.chunks():
-                            destination.write(chunk)
+            file = request.FILES.get('update_image')  # 변경된 이미지 가져오기
+
+            uuid_name = uuid4().hex  # 고유 ID 생성
+            save_path = os.path.join(MEDIA_ROOT, uuid_name)  # MEDIA_ROOT와 결합
+
+            with open(save_path, 'wb+') as destination:  # 파일 저장
+                for chunk in file.chunks():
+                    destination.write(chunk)
 
             alcoldrinks.image = uuid_name  # 이미지 필드에 UUID 저장
 
