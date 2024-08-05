@@ -102,3 +102,13 @@ class UpdateAlcol(APIView):
             form = AlcolDrinksForm(instance=alcoldrinks)
 
         return render(request, 'alcoldrinks/alcolupdate.html', {'form': form})
+
+
+class DeleteAlcol(APIView):
+    def get(self, request, pk):
+        alcoldrinks = AlcolDrinks.objects.get(pk=pk)
+        alcoldrinks.delete()
+
+        return redirect("alcoldrinks:Showalcol", alcoldrinks.pk)
+
+
