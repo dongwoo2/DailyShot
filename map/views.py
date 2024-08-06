@@ -56,10 +56,10 @@ class KeywordSearch(APIView):
         alcolshop_list = Alcolshop.objects.all()
         keywords = request.GET.get('keywords', '')
         keywords_list = []
-
+        print("keywords : ", keywords)
         if keywords:
             keywords_list = alcolshop_list.filter(name__icontains=keywords)
-
+            print("검색된 결과 : ", keywords_list)  # 필터링된 결과 출력
         if not keywords_list:
             return Response({'message': '검색 결과가 존재하지 않습니다.'}, status=status.HTTP_404_NOT_FOUND)
 

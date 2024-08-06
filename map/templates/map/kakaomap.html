@@ -1,6 +1,9 @@
 <html>
 <head>
     <meta charset="utf-8"/>
+    <!-- jQuery CDN 추가 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Kakao 지도 시작하기</title>
     <style>
         .map_wrap, .map_wrap * {
@@ -227,6 +230,7 @@
             <div class="option">
                 <div>
                     <form onsubmit="return searchPlaces();">
+                        {% csrf_token %}
                         키워드 : <input type="text" value="" id="keyword" size="15">
                         <button type="submit">검색하기</button>
                     </form>
@@ -304,19 +308,34 @@
         return true;
     }
 
+    // CSRF 토큰 설정
+    $.ajaxSetup({
+        headers: {
+            'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()
+        }
+    });
+
     function keywordSearch(keyword, placesSearchCB) {
         let keywordsearch_url = "{% url 'map:keywordsearch'  %}";
         console.log('아작스 진입전')
+        console.log("키워드 값", keyword)
         $.ajax({
             url: keywordsearch_url, // 폼의 action 속성에서 URL 가져오기
             type: 'GET',
             data: {keywords: keyword},
+            //processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+            //contentType: false, // jQuery가 콘텐츠 유형을 설정하지 않도록 설정
             success: function (response) {
+                console.log("서버 응답: ", response); // 응답 데이터 출력
                 // 성공적으로 처리된 경우
                 alert('데이터 찾기.');
                 // 필요한 경우 추가적인 처리 (예: 페이지 새로고침, 데이터 갱신 등)
-                if (Array.isArray(response) && response.length > 0) {
+                if (response.length > 0) {
                     if (typeof placesSearchCB === 'function') {
+                        alert('place로 이동')
+                        alert(`response 후에 받는 데이터 : ${JSON.stringify(response)}`);
+                        console.log(`response 후에 받는 데이터 : ${JSON.stringify(response)}`);
+
                         placesSearchCB(response);
                     }
                 }
@@ -353,9 +372,12 @@
         }
     */
     function placesSearchCB(data) {
-        if (data.length > 0) {
-            displayPlaces(data);
+        alert('placeSearch 진입')
+        alert(`placesSearchCB 후에 받는 데이터 : ${JSON.stringify(data)}`);
+        console.log("data : ", data)
+        if (data) {
             alert('데이터가 존재합니다.')
+            displayPlaces(data);
             // displayPagination(pagination);
         } else {
             alert(data.message || '검색 결과가 존재하지 않습니다.');
@@ -365,9 +387,16 @@
 
     // 검색 결과 목록과 마커를 표출하는 함수입니다
     function displayPlaces(places) {
+        alert('display진입');
+        alert(`display진입 후에 받는 데이터 : ${JSON.stringify(places)}`);
+        alert(`display진입 후에 받는 데이터 : ${JSON.stringify(places.length)}`);
 
-        var listEl = document.getElementById('placesList'),
-            menuEl = document.getElementById('menu_wrap'),
+        if (places.length === 0) {
+            alert('검색 결과가 없습니다.');
+            return; // 배열이 비어있으면 종료
+        }
+        var listEl = $('.placesList').val(),
+            menuEl = $('.menu_wrap').val(),
             fragment = document.createDocumentFragment(),
             bounds = new kakao.maps.LatLngBounds(),
             listStr = '';
@@ -379,9 +408,9 @@
         removeMarker();
 
         for (var i = 0; i < places.length; i++) {
-
+            alert(places[i].name)
             // 마커를 생성하고 지도에 표시합니다
-            var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+            var placePosition = new kakao.maps.LatLng(places[i].latitude, places[i].longitude),
                 marker = addMarker(placePosition, i), // 마커 추가하고
                 itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
@@ -408,7 +437,7 @@
                 itemEl.onmouseout = function () {
                     infowindow.close();
                 };
-            })(marker, places[i].place_name);
+            })(marker, places[i].name);
 
             fragment.appendChild(itemEl);
         }
@@ -422,6 +451,7 @@
     }
 
     function getListItem(index, places) {
+        alert(places.place_name)
 
         var el = document.createElement('li'),
             itemStr = '<span class="markerbg marker_' + (index + 1) + '"></span>' +
