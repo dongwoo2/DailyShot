@@ -1,9 +1,9 @@
 from django import forms
-from .models import Filter
+from .models import AlcolDrinks
 
-class FilterForm(forms.ModelForm):
+class AlcolDrinksForm(forms.ModelForm):
     class Meta:
-        model = Filter
+        model = AlcolDrinks
         fields = '__all__'
 
 
