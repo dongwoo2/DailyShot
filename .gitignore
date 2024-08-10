@@ -1,4 +1,7 @@
-/mysite/
+/mysite/settings.py/
+/mysite/admin.py/
+/mysite/__pycache__/
+/mysite/migrations/
 db.sqlite3
 .idea/
 /content/__pycache__/
@@ -9,3 +12,7 @@ db.sqlite3
 /shop/migrations/
 media
 venv
+/alcoldrinks/__pycache__/
+/alcoldrinks/migrations/
+/user/__pycache__/
+/user/migrations/
